@@ -11,20 +11,20 @@ public class CameraBoundsHelper : MonoBehaviour
 
     public static Vector3 GetRandomPointInBounds()
     {
-        // Получаем размеры экрана в мировых координатах (это эквивалентно размерам области камеры)
+        // Get the screen size in world coordinates (this is equivalent to the camera's view area size)
         if (!cam) FindCam();
 
-        // Определяем границы экрана в мировых координатах
+        // Define the screen boundaries in world coordinates
         Vector3 bottomLeft = cam.ScreenToWorldPoint(new Vector3(0, 0, cam.transform.position.y));
         Vector3 topRight = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.transform.position.y));
 
-        // Генерируем случайные координаты внутри границ
+        // Generate random coordinates within the boundaries
         float randomX = Random.Range(bottomLeft.x, topRight.x);
         float randomZ = Random.Range(bottomLeft.z, topRight.z);
 
-        return new Vector3(randomX, 0, randomZ);  // Возвращаем точку с учетом уровня по Y
+        return new Vector3(randomX, 0, randomZ); // Return the point with the Y-level taken into account
     }
-    
+
     public static Vector3 ConvertWorldToViewport(Vector3 ObjectPosition)
     {
         if (!cam) FindCam();

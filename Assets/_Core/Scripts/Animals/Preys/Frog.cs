@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Frog : Animal
 {
-    [SerializeField] private float jumpForceUp = 3f;  // Сила прыжка
-    [SerializeField] private float jumpForceForward = 3f;  // Сила прыжка
-    [SerializeField] private float jumpInterval = 1f;  // Интервал между прыжками (в секундах)
+    [SerializeField] private float jumpForceUp = 3f;  
+    [SerializeField] private float jumpForceForward = 3f;  
+    [SerializeField] private float jumpInterval = 1f; 
 
-    private float timeSinceLastJump = 0f;  // Время, прошедшее с последнего прыжка
+    private float timeSinceLastJump = 0f;  // Time elapsed since the last jump
 
     public override void Move()
     {
@@ -16,13 +16,12 @@ public class Frog : Animal
         {
             CheckBounds();
             Jump();
-            timeSinceLastJump = 0f;  // Сбрасываем таймер после прыжка
+            timeSinceLastJump = 0f; // Reset the timer after the jump
         }
     }
 
     private void Jump()
-    {
-        // Лягушка прыгает в том направлении, куда она смотрит
+    {    
         rb.AddForce(transform.up * jumpForceUp, ForceMode.Impulse);
         rb.AddForce(transform.forward * jumpForceForward, ForceMode.Impulse);
         animator.Play("Jump");

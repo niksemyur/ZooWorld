@@ -14,18 +14,17 @@ public class AnimalLabelController : MonoBehaviour
 
     public void ShowLabel()
     {
-        if (gameObject.activeInHierarchy) return; //выходим если текст уже активирован другой жертвой
+        if (gameObject.activeInHierarchy) return; // return if the text is already activated by another prey
+
         LookAtCamera();
         transform.localScale = Vector3.zero;
         gameObject.SetActive(true);
 
-        transform.DOScale(1.1f, 0.4f) // Сначала увеличиваем масштаб до 1.1 за 0.4 сек
+        transform.DOScale(1.1f, 0.4f)
                     .OnKill(() =>
                     {
-                        // После этого, анимируем уменьшение до 1 за 0.1 сек
                         transform.DOScale(1f, 0.1f).OnKill(() =>
                         {
-                            //после анимации выключаем объект спустя 0.5 сек
                             DOVirtual.DelayedCall(0.5f, () => gameObject.SetActive(false));
                         });
                     });

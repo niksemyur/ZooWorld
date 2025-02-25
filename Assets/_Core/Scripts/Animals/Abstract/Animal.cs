@@ -32,7 +32,7 @@ public abstract class Animal : MonoBehaviour
             Debug.LogError("gameController не назначен!");
         }
 
-        if (CompareTag("Predator")) //Получение AnimalLabelController для хищников
+        if (CompareTag("Predator")) // Get the AnimalLabelController for predators
         {
             animalLabelController = transform.Find("AnimalLabelController")?.GetComponent<AnimalLabelController>();
             if (animalLabelController == null)
@@ -46,7 +46,7 @@ public abstract class Animal : MonoBehaviour
 
     private void Update()
     {
-        Move();  // Вызываем метод движения
+        Move();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -58,20 +58,20 @@ public abstract class Animal : MonoBehaviour
                 if (!collision.gameObject.activeInHierarchy)
                 {
                     ShowLabel();
-                    return;  //Если одно из животных уже уничтожено внутри своего класса, выходим и вызываем текст
+                    return;  // If one of the animals is already destroyed within its class, exit and trigger the text
                 }
 
-                if (!gameObject.activeInHierarchy) return;  // Если наше животное уничтожено выходим
+                if (!gameObject.activeInHierarchy) return;  // If this animal is destroyed, exit
 
                 if (Random.Range(0, 2) == 0)
                 {
                     gameObject.SetActive(false);
-                    Destroy(gameObject);  // Уничтожаем текущее животное
+                    Destroy(gameObject);  // Destroy this animal
                 }
                 else
                 {
                     collision.gameObject.SetActive(false);
-                    Destroy(collision.gameObject);  // Уничтожаем столкнувшееся животное
+                    Destroy(collision.gameObject);  // Destroy collision animal
                     ShowLabel();
                 }
                 gameController.AddDeadAnimal(true);
@@ -80,7 +80,7 @@ public abstract class Animal : MonoBehaviour
             {
                 gameController.AddDeadAnimal(false);
                 collision.gameObject.SetActive(false);
-                Destroy(collision.gameObject);  // Уничтожаем столкнувшееся животное
+                Destroy(collision.gameObject);  // Destroy collision animal
                 ShowLabel();
             }
         }
@@ -96,7 +96,7 @@ public abstract class Animal : MonoBehaviour
     {
         Vector3 screenPos = CameraBoundsHelper.ConvertWorldToViewport(transform.position);
 
-        // Проверяем, вышел ли объект за границы (меньше 0 или больше 1 по любой координате)
+        // Check if the object has gone out of bounds (less than 0 or greater than 1 on any coordinate)
         if (screenPos.x < 0 || screenPos.x > 1 || screenPos.y < 0 || screenPos.y > 1)
         {
             SetMoveTargetPosition();

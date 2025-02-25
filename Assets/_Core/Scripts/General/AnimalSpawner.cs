@@ -3,9 +3,9 @@ using System.Collections;
 
 public class AnimalSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] animalPrefabs; // Массив префабов животных (Frog, Snake)
-    [SerializeField] private float spawnIntervalMin = 1f; // Минимальный интервал спавна
-    [SerializeField] private float spawnIntervalMax = 2f; // Максимальный интервал спавна
+    [SerializeField] private GameObject[] animalPrefabs; // Array of animal prefabs
+    [SerializeField] private float spawnIntervalMin = 1f; // Minimum spawn interval
+    [SerializeField] private float spawnIntervalMax = 2f; // Maximum spawn interval
     void Start()
     {
         StartCoroutine(SpawnAnimals());
@@ -25,13 +25,13 @@ public class AnimalSpawner : MonoBehaviour
     {
         if (animalPrefabs.Length == 0) return;
 
-        // Выбираем случайное животное
+        // Choose a random animal
         GameObject animalPrefab = animalPrefabs[Random.Range(0, animalPrefabs.Length)];
 
-        // Генерируем случайную позицию на экране
+        // Generate a random position in bounds
         Vector3 spawnPosition = CameraBoundsHelper.GetRandomPointInBounds();
 
-        // Создаем животное
+        // Spawn animal
         GameObject newAnimal = Instantiate(animalPrefab, transform);
         newAnimal.transform.position = spawnPosition;
     }

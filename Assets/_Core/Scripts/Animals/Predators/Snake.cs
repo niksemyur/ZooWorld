@@ -6,7 +6,6 @@ public class Snake : Animal
 
     public override void Move()
     {
-        // Двигаем объект в том направлении, куда он смотрит
         rb.linearVelocity = transform.forward * moveSpeed;
         CheckBounds();
     }
